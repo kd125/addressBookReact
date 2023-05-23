@@ -1,0 +1,17 @@
+.mainCard {
+  border: 2px solid black;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.image {
+  margin: 0 auto;
+}
+
+.hiddenText {
+  text-align: center;
+}

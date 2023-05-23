@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import React from "react";
+import UserCard from "./card";
 
 function App() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://randomuser.me/api?results=25").then(({ data }) => {
+      setUsers(data.results);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ul>
+        {users.map((user, index) => {
+          const fullName = `${user.name.first} ${user.name.last}`;
+          const pic = user.picture.medium;
+          const email = user.email;
+          const location = `${user.location.city}, ${user.location.country}`;
+          return (
+            <li key={index}>
+              <UserCard
+                img={pic}
+                name={fullName}
+                email={email}
+                location={location}
+              />
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
